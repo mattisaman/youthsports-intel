@@ -2066,8 +2066,8 @@
         </tr>
         <tr>
           <td>LeagueApps</td>
-          <td>"Small %" — demo required<br><span style="color:var(--green);font-size:0.78rem">Some orgs under 2% (cost-plus via Stripe)</span></td>
-          <td>None — percentage model only</td>
+          <td>Undisclosed — demo required<br><span style="color:var(--green);font-size:0.78rem">High-volume orgs may see % below Stripe's 2.9% standard rate via cost-plus model</span></td>
+          <td>$0.30/transaction (Stripe's flat fee always applies underneath)</td>
           <td>No subscription · one-time setup fee</td>
           <td><span class="fee-badge badge-orange">Partial</span></td>
           <td>Org absorbs · optional $1–$5 pass-through at admin's discretion</td>
@@ -2105,9 +2105,9 @@
         <div class="c-breakdown">2.9% + $0.30 = $6.10 in fees</div>
       </div>
       <div class="calc-card">
-        <div class="c-label">LeagueApps (est. ~2.5%)</div>
+        <div class="c-label">LeagueApps (est. ~2.5%)*</div>
         <div class="c-amount" style="color:var(--blue)">~$205.30</div>
-        <div class="c-breakdown">~$5.30 in fees · varies by org volume</div>
+        <div class="c-breakdown">~2.5% + $0.30 = ~$5.30 · <span style="color:var(--green)">-$0.80 vs Stripe</span> · estimate only</div>
       </div>
       <div class="calc-card">
         <div class="c-label">TeamLinkt</div>
@@ -2138,9 +2138,9 @@
         <div class="c-breakdown">2.9% × $1,500 + $0.30 × 4 installments</div>
       </div>
       <div class="calc-card">
-        <div class="c-label">LeagueApps (est. ~2.5%)</div>
-        <div class="c-amount" style="color:var(--blue)">~$37.50</div>
-        <div class="c-breakdown">~2.5% × $1,500, no flat per-tx fee</div>
+        <div class="c-label">LeagueApps (est. ~2.5%)*</div>
+        <div class="c-amount" style="color:var(--blue)">~$38.70</div>
+        <div class="c-breakdown">~2.5% × $1,500 + $0.30 × 4 = ~$38.70 · estimate only</div>
       </div>
       <div class="calc-card">
         <div class="c-label">TeamLinkt</div>
@@ -2158,6 +2158,15 @@
         <div class="c-breakdown">3.25% × $1,500 + $2.00 × 4 · <span style="color:var(--red)">+$12.05 vs Stripe (+27%)</span></div>
       </div>
     </div>
+  </div>
+
+  <!-- ── LeagueApps cost-plus explainer ── -->
+  <div class="callout" style="margin-top:2rem;border-left:3px solid var(--blue)">
+    <h3 style="color:var(--blue)">* How LeagueApps Can Undercut Stripe's Standard Rate</h3>
+    <p style="margin-bottom:0.75rem;">LeagueApps itself is the Stripe merchant — not the individual league. That distinction matters. When a league uses LeagueApps Gateway, they're processing payments through LeagueApps' master Stripe account, not their own. LeagueApps consolidates payment volume across all of its org partners, which means they're pushing potentially hundreds of millions of dollars per year through Stripe as a single entity.</p>
+    <p style="margin-bottom:0.75rem;">Stripe's published rate (2.9% + $0.30) is the standard rate for a new merchant. At scale, Stripe offers custom pricing to high-volume platforms — often negotiated down to 2.2–2.5% on the percentage component, sometimes lower. LeagueApps passes these negotiated rates through to their org partners via what they call a cost-plus model: org pays Stripe's volume rate plus a small LeagueApps markup.</p>
+    <p style="margin-bottom:0.75rem;">Crucially, Stripe's $0.30 flat fee per transaction is always present underneath — LeagueApps cannot negotiate that away. So "under 2%" likely refers to the percentage component only, not the effective all-in rate. For a single $200 payment, the math still works out slightly in LeagueApps' favor vs Stripe's standard rate (~$5.30 vs $6.10). For installment plans, the $0.30 flat compounds per installment just like everyone else.</p>
+    <p><strong style="color:var(--text)">The strategic implication:</strong> a new platform that processes enough volume — or partners with a payment aggregator at the platform level — can offer org partners rates below what they'd get on their own Stripe account. LeagueApps proved the model works. The question is whether a new platform can get to the volume needed to negotiate meaningfully better rates before hitting the market with a pricing promise.</p>
   </div>
 
   <!-- ── Differentiation Opportunities ── -->

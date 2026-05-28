@@ -1,0 +1,7 @@
+.claude/
+memory/
+research/
+report/
+CLAUDE.md
+.env
+*.env

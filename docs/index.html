@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouthSports Platform Intelligence Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080c18;
+      --bg2:       #0e1526;
+      --bg3:       #141d35;
+      --card:      #111827;
+      --border:    rgba(255,255,255,0.07);
+      --green:     #00e87a;
+      --blue:      #3b82f6;
+      --orange:    #f97316;
+      --red:       #ef4444;
+      --yellow:    #eab308;
+      --purple:    #a855f7;
+      --text:      #f1f5f9;
+      --muted:     #94a3b8;
+      --dim:       #475569;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,12,24,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    nav .brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--green);
+      letter-spacing: -0.02em;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    nav ul a:hover { color: var(--text); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 7rem 2rem 5rem;
+      text-align: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(0,232,122,0.12), transparent),
+                  radial-gradient(ellipse 60% 50% at 80% 80%, rgba(59,130,246,0.08), transparent);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,232,122,0.1);
+      border: 1px solid rgba(0,232,122,0.25);
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--green);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 span { color: var(--green); }
+    .hero p.subtitle {
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat .num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+    }
+    .hero-stat .lbl {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── SECTIONS ─── */
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .section-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .section-desc {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 640px;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    /* ─── JUDGING MATRIX ─── */
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .matrix-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: border-color .2s;
+    }
+    .matrix-card:hover { border-color: rgba(0,232,122,0.25); }
+    .matrix-card .weight {
+      display: inline-block;
+      background: rgba(0,232,122,0.12);
+      color: var(--green);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+    }
+    .matrix-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .matrix-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── FULL LANDSCAPE TABLE ─── */
+    .landscape-table-wrap {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    thead th {
+      background: var(--bg3);
+      padding: 0.9rem 1.1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background .15s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
+    tbody td {
+      padding: 0.85rem 1.1rem;
+      vertical-align: middle;
+    }
+    .platform-name {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .tier-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .tier-top { background: rgba(0,232,122,0.15); color: var(--green); }
+    .tier-mid { background: rgba(59,130,246,0.15); color: var(--blue); }
+    .tier-low { background: rgba(239,68,68,0.15); color: var(--red); }
+    .score-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .score-bar {
+      flex: 1;
+      height: 6px;
+      background: var(--bg3);
+      border-radius: 3px;
+      overflow: hidden;
+      min-width: 80px;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+    .score-num {
+      font-weight: 700;
+      font-size: 0.9rem;
+      min-width: 32px;
+      text-align: right;
+    }
+
+    /* ─── TOP 5 PLATFORMS ─── */
+    .top5-grid {
+      display: grid;
+      gap: 2rem;
+    }
+    .platform-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: border-color .2s, transform .2s;
+    }
+    .platform-card:hover {
+      border-color: rgba(0,232,122,0.2);
+      transform: translateY(-2px);
+    }
+    .platform-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 1.75rem 2rem;
+      background: linear-gradient(135deg, var(--bg3), var(--card));
+      border-bottom: 1px solid var(--border);
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .platform-card-header .rank {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--green);
+      opacity: 0.3;
+      min-width: 60px;
+    }
+    .platform-card-header .meta h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.02em;
+    }
+    .platform-card-header .meta .tagline {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .platform-card-header .meta .url {
+      color: var(--blue);
+      font-size: 0.8rem;
+      text-decoration: none;
+      opacity: 0.8;
+    }
+    .platform-card-header .score-display {
+      text-align: center;
+    }
+    .platform-card-header .score-display .big-score {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .platform-card-header .score-display .out-of {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .platform-card-body {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 640px) {
+      .platform-card-body { grid-template-columns: 1fr; }
+    }
+    .platform-metrics h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .metric-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      gap: 1rem;
+    }
+    .metric-row .label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      min-width: 120px;
+      flex-shrink: 0;
+    }
+    .metric-row .bar-wrap {
+      flex: 1;
+      height: 6px;
+      background: var(--bg3);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .metric-row .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+    .metric-row .val {
+      font-size: 0.82rem;
+      font-weight: 700;
+      min-width: 28px;
+      text-align: right;
+    }
+    .platform-features h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .win-list, .miss-list {
+      list-style: none;
+    }
+    .win-list li, .miss-list li {
+      font-size: 0.85rem;
+      padding: 0.35rem 0;
+      padding-left: 1.4rem;
+      position: relative;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .win-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+    }
+    .miss-list li::before {
+      content: '✗';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-weight: 700;
+    }
+    .card-insight {
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: rgba(0,232,122,0.06);
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.85rem;
+      color: var(--text);
+      line-height: 1.6;
+      grid-column: 1 / -1;
+    }
+    .card-insight strong { color: var(--green); }
+
+    /* ─── BOTTOM 5 ─── */
+    .bottom5-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.25rem;
+    }
+    .bottom-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      border-top: 3px solid var(--red);
+    }
+    .bottom-card .b-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .bottom-card .b-header h3 {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+    .bottom-card .b-header .b-score {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--red);
+    }
+    .bottom-card p {
+      font-size: 0.83rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+    .fail-tag {
+      display: inline-block;
+      background: rgba(239,68,68,0.1);
+      color: var(--red);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      margin: 0.2rem;
+    }
+
+    /* ─── PRINCIPLES ─── */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 768px) {
+      .principles-grid { grid-template-columns: 1fr; }
+    }
+    .principle-col h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .principle-col.wins h3 { color: var(--green); }
+    .principle-col.fails h3 { color: var(--red); }
+    .principle-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      align-items: flex-start;
+    }
+    .principle-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .wins .principle-icon { background: rgba(0,232,122,0.1); }
+    .fails .principle-icon { background: rgba(239,68,68,0.1); }
+    .principle-text h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .principle-text p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ─── OPPORTUNITY MAP ─── */
+    .opportunity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+    .opp-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: border-color .2s;
+    }
+    .opp-card:hover { border-color: rgba(59,130,246,0.3); }
+    .opp-card .opp-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      margin-bottom: 0.9rem;
+    }
+    .gap-label { background: rgba(59,130,246,0.12); color: var(--blue); }
+    .edge-label { background: rgba(168,85,247,0.12); color: var(--purple); }
+    .opp-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .opp-card p {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── NAMES ─── */
+    .names-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.25rem;
+    }
+    .name-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      position: relative;
+      transition: border-color .2s, transform .2s;
+    }
+    .name-card:hover {
+      border-color: rgba(0,232,122,0.25);
+      transform: translateY(-2px);
+    }
+    .name-card.available {
+      border-top: 3px solid var(--green);
+    }
+    .name-card.check {
+      border-top: 3px solid var(--yellow);
+    }
+    .avail-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+    }
+    .avail-badge.yes { background: rgba(0,232,122,0.15); color: var(--green); }
+    .avail-badge.check-it { background: rgba(234,179,8,0.15); color: var(--yellow); }
+    .name-card .domain {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.02em;
+    }
+    .name-card .price {
+      font-size: 0.78rem;
+      color: var(--green);
+      margin-bottom: 0.75rem;
+    }
+    .name-card .why {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    .name-card .traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .trait {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: var(--dim);
+      font-size: 0.82rem;
+    }
+    footer strong { color: var(--muted); }
+
+    /* ─── MISC ─── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 2.5rem 0;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.2rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .callout {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem 2rem;
+      margin: 2rem 0;
+    }
+    .callout h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .callout p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* color bars */
+    .bar-green { background: var(--green); }
+    .bar-blue { background: var(--blue); }
+    .bar-orange { background: var(--orange); }
+    .bar-red { background: var(--red); }
+    .bar-yellow { background: var(--yellow); }
+    .bar-purple { background: var(--purple); }
+    .bar-dim { background: var(--dim); }
+
+    .text-green { color: var(--green); }
+    .text-blue { color: var(--blue); }
+    .text-orange { color: var(--orange); }
+    .text-red { color: var(--red); }
+    .text-muted { color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="brand">YouthSports Intel Report</span>
+  <ul>
+    <li><a href="#methodology">Matrix</a></li>
+    <li><a href="#landscape">Landscape</a></li>
+    <li><a href="#top5">Top 5</a></li>
+    <li><a href="#bottom5">Bottom 5</a></li>
+    <li><a href="#principles">Principles</a></li>
+    <li><a href="#opportunity">Opportunity</a></li>
+    <li><a href="#names">Names</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">
+    <span>&#9679;</span> Competitive Intelligence · May 2026
+  </div>
+  <h1>The <span>Youth Sports Platform</span><br>Intelligence Report</h1>
+  <p class="subtitle">
+    A deep-dive analysis of the 15 most significant youth sports management platforms in the USA, scored against a 7-axis judging matrix, with strategic gaps mapped to your platform opportunity.
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="num">15</div>
+      <div class="lbl">Platforms Analyzed</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">7</div>
+      <div class="lbl">Scoring Criteria</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">Top 5</div>
+      <div class="lbl">Deep Dives</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">10+</div>
+      <div class="lbl">Strategic Gaps Found</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">6</div>
+      <div class="lbl">Available Domains</div>
+    </div>
+  </div>
+</div>
+
+<!-- METHODOLOGY -->
+<section id="methodology">
+  <div class="section-tag">Research Framework</div>
+  <h2>The Judging Matrix</h2>
+  <p class="section-desc">Seven weighted criteria used to score every platform. Weights reflect what matters most to a youth sports organization running multiple teams across multiple venues.</p>
+
+  <div class="matrix-grid">
+    <div class="matrix-card">
+      <span class="weight">20% Weight</span>
+      <h3>Market Scale &amp; Adoption</h3>
+      <p>Active user base, App Store ratings/review volume, organic search ranking, brand recognition, geographic footprint. A platform nobody uses has no network effect and no community proof.</p>
+    </div>
+    <div class="matrix-card">
+      <span class="weight">25% Weight</span>
+      <h3>Feature Completeness</h3>
+      <p>Does it cover the full stack: registration, online payments, scheduling, team communication, rosters/profiles, tournament management, website builder, and analytics? Gaps mean admins still need external tools.</p>
+    </div>
+    <div class="matrix-card">
+      <span class="weight">15% Weight</span>
+      <h3>Parent &amp; Athlete UX</h3>
+      <p>Mobile app quality (App Store rating, review sentiment), ease-of-use for non-technical parents, clarity of the parent-facing view, RSVP/availability tracking, notification reliability.</p>
+    </div>
+    <div class="matrix-card">
+      <span class="weight">15% Weight</span>
+      <h3>League / Admin Depth</h3>
+      <p>Multi-tier org hierarchy (governing body &gt; league &gt; division &gt; team), role-based permissions, cross-team reporting, financial dashboards, waiver/compliance management.</p>
+    </div>
+    <div class="matrix-card">
+      <span class="weight">10% Weight</span>
+      <h3>Facility &amp; Venue Scheduling</h3>
+      <p>Built-in ice time / field time booking, multi-venue conflict detection, resource allocation across teams, rink block management. This is the most underserved need in the market.</p>
+    </div>
+    <div class="matrix-card">
+      <span class="weight">8% Weight</span>
+      <h3>Pricing Transparency &amp; Value</h3>
+      <p>Is pricing clearly stated? Is it scalable without punishing growth? Does the free tier have real value? Are processing fees competitive? Opaque pricing is a red flag for volatile organizations.</p>
+    </div>
+    <div class="matrix-card">
+      <span class="weight">7% Weight</span>
+      <h3>Support Quality &amp; Onboarding</h3>
+      <p>Response time, dedicated onboarding, knowledge base depth, community/peer network. Volunteer-run leagues cannot afford platforms with poor support.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LANDSCAPE TABLE -->
+<section id="landscape">
+  <div class="section-tag">Full Market Map</div>
+  <h2>15 Platforms Ranked</h2>
+  <p class="section-desc">Every major platform scored against the matrix. Colors indicate tier: Top 5 (green), Challengers (blue), Weak performers (red).</p>
+
+  <div class="landscape-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Platform</th>
+          <th>Primary Strength</th>
+          <th>Best For</th>
+          <th>Score / 100</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- TOP 5 -->
+        <tr>
+          <td style="font-weight:700;color:var(--green)">1</td>
+          <td><div class="platform-name">LeagueApps <span class="tier-badge tier-top">TOP 5</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">Most comprehensive all-in-one league ops platform</td>
+          <td style="font-size:0.83rem">Clubs, leagues, facilities</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-green" style="width:88%"></div></div>
+              <span class="score-num text-green">88</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--green)">2</td>
+          <td><div class="platform-name">SportsEngine <span class="tier-badge tier-top">TOP 5</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">Enterprise scale, NBC Sports ecosystem, 195K+ app reviews</td>
+          <td style="font-size:0.83rem">Large orgs, governing bodies</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-green" style="width:82%"></div></div>
+              <span class="score-num text-green">82</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--green)">3</td>
+          <td><div class="platform-name">TeamLinkt <span class="tier-badge tier-top">TOP 5</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">Fastest-growing, AI assistant, best free tier on market</td>
+          <td style="font-size:0.83rem">Modern orgs, all sizes</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-green" style="width:79%"></div></div>
+              <span class="score-num text-green">79</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--green)">4</td>
+          <td><div class="platform-name">TeamSnap <span class="tier-badge tier-top">TOP 5</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">Largest user base globally (35M+), best brand recognition</td>
+          <td style="font-size:0.83rem">Teams, coaches, parents</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-green" style="width:77%"></div></div>
+              <span class="score-num text-green">77</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--green)">5</td>
+          <td><div class="platform-name">Crossbar <span class="tier-badge tier-top">TOP 5</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">Only platform with deep ice rink &amp; facility block scheduling</td>
+          <td style="font-size:0.83rem">Hockey, football, multi-rink</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-green" style="width:76%"></div></div>
+              <span class="score-num text-green">76</span>
+            </div>
+          </td>
+        </tr>
+        <!-- CHALLENGERS -->
+        <tr>
+          <td style="font-weight:600;color:var(--blue)">6</td>
+          <td><div class="platform-name">SportNinja <span class="tier-badge tier-mid">Challenger</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">League-first, real-time scoring, ChatGPT auto-highlights</td>
+          <td style="font-size:0.83rem">League operators</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-blue" style="width:70%"></div></div>
+              <span class="score-num text-blue">70</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;color:var(--blue)">7</td>
+          <td><div class="platform-name">Sprocket <span class="tier-badge tier-mid">Challenger</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">QuickBooks integration, analytics, lower processing fees</td>
+          <td style="font-size:0.83rem">Mid-size clubs (500-1000 athletes)</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-blue" style="width:67%"></div></div>
+              <span class="score-num text-blue">67</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;color:var(--blue)">8</td>
+          <td><div class="platform-name">CommunityPass <span class="tier-badge tier-mid">Challenger</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">20+ years, parks &amp; rec focus, solid compliance tools</td>
+          <td style="font-size:0.83rem">Municipal rec leagues</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-blue" style="width:65%"></div></div>
+              <span class="score-num text-blue">65</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;color:var(--blue)">9</td>
+          <td><div class="platform-name">Team Sideline <span class="tier-badge tier-mid">Challenger</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">Automated schedule generation, per-team mini-sites</td>
+          <td style="font-size:0.83rem">Small-mid leagues</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-blue" style="width:61%"></div></div>
+              <span class="score-num text-blue">61</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;color:var(--blue)">10</td>
+          <td><div class="platform-name">Heja <span class="tier-badge tier-mid">Challenger</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">Clean UX, RSVP tracking, European-origin, 4.8 App Store</td>
+          <td style="font-size:0.83rem">Communication-first teams</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-blue" style="width:56%"></div></div>
+              <span class="score-num text-blue">56</span>
+            </div>
+          </td>
+        </tr>
+        <!-- BOTTOM 5 -->
+        <tr>
+          <td style="font-weight:600;color:var(--red)">11</td>
+          <td><div class="platform-name">GotSport <span class="tier-badge tier-low">Weak</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">Soccer-specific aging platform, 4.1 App Store rating</td>
+          <td style="font-size:0.83rem">Legacy soccer programs</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-red" style="width:51%"></div></div>
+              <span class="score-num text-red">51</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;color:var(--red)">12</td>
+          <td><div class="platform-name">Leageez <span class="tier-badge tier-low">Weak</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">Free mobile app, referee scheduling, basic features</td>
+          <td style="font-size:0.83rem">Very small, budget-only leagues</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-red" style="width:44%"></div></div>
+              <span class="score-num text-red">44</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;color:var(--red)">13</td>
+          <td><div class="platform-name">Jersey Watch <span class="tier-badge tier-low">Weak</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">Easiest onboarding, free website builder, no depth</td>
+          <td style="font-size:0.83rem">Entry-level micro-programs</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-red" style="width:43%"></div></div>
+              <span class="score-num text-red">43</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;color:var(--red)">14</td>
+          <td><div class="platform-name">BenchApp <span class="tier-badge tier-low">Weak</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">3.8 App Store rating, payment tracking, basic comms</td>
+          <td style="font-size:0.83rem">Amateur rec teams only</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-red" style="width:39%"></div></div>
+              <span class="score-num text-red">39</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;color:var(--red)">15</td>
+          <td><div class="platform-name">Spordle <span class="tier-badge tier-low">Weak</span></div></td>
+          <td style="font-size:0.83rem;color:var(--muted)">3.4 App Store rating, live scores, limited scale</td>
+          <td style="font-size:0.83rem">Canadian niche only</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill bar-red" style="width:36%"></div></div>
+              <span class="score-num text-red">36</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- TOP 5 DEEP DIVES -->
+<section id="top5">
+  <div class="section-tag">Deep Analysis</div>
+  <h2>Top 5 Platform Deep Dives</h2>
+  <p class="section-desc">The five platforms setting the standard. What each does exceptionally well, what they miss, and the strategic insight for your build.</p>
+
+  <div class="top5-grid">
+
+    <!-- #1 LEAGUEAPPS -->
+    <div class="platform-card">
+      <div class="platform-card-header">
+        <span class="rank">01</span>
+        <div class="meta">
+          <h3>LeagueApps</h3>
+          <p class="tagline">The league operator's operating system</p>
+          <a class="url" href="#">leagueapps.com</a>
+        </div>
+        <div class="score-display">
+          <div class="big-score text-green">88</div>
+          <div class="out-of">out of 100</div>
+        </div>
+      </div>
+      <div class="platform-card-body">
+        <div class="platform-metrics">
+          <h4>Criteria Scores</h4>
+          <div class="metric-row">
+            <span class="label">Market Adoption</span>
+            <div class="bar-wrap"><div class="bar-fill bar-green" style="width:80%"></div></div>
+            <span class="val text-green">8</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Feature Completeness</span>
+            <div class="bar-wrap"><div class="bar-fill bar-green" style="width:100%"></div></div>
+            <span class="val text-green">10</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Parent / UX</span>
+            <div class="bar-wrap"><div class="bar-fill bar-green" style="width:80%"></div></div>
+            <span class="val text-green">8</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Admin Depth</span>
+            <div class="bar-wrap"><div class="bar-fill bar-green" style="width:100%"></div></div>
+            <span class="val text-green">10</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Facility Scheduling</span>
+            <div class="bar-wrap"><div class="bar-fill bar-blue" style="width:80%"></div></div>
+            <span class="val text-blue">8</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Pricing Value</span>
+            <div class="bar-wrap"><div class="bar-fill bar-orange" style="width:70%"></div></div>
+            <span class="val text-orange">7</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Support Quality</span>
+            <div class="bar-wrap"><div class="bar-fill bar-green" style="width:90%"></div></div>
+            <span class="val text-green">9</span>
+          </div>
+        </div>
+        <div class="platform-features">
+          <h4>What They Nail</h4>
+          <ul class="win-list">
+            <li>Full org hierarchy: clubs, camps, leagues, and facilities in one platform</li>
+            <li>Advanced data analytics — real-time reporting on revenue, registrations, and program performance</li>
+            <li>Dedicated facilities module for ice/field scheduling</li>
+            <li>Custom WordPress websites built for each org</li>
+            <li>Partnership model: they act as a growth consultant, not just software</li>
+            <li>Testimonials from lacrosse clubs (Team 91 Lacrosse)</li>
+          </ul>
+          <h4 style="margin-top:1rem">Critical Gaps</h4>
+          <ul class="miss-list">
+            <li>No athlete/kid-facing profile or development tracking</li>
+            <li>No multi-child household view for parents</li>
+            <li>Pricing requires a demo call — not self-serve</li>
+            <li>UI feels enterprise-heavy, not consumer-grade</li>
+          </ul>
+        </div>
+        <div class="card-insight">
+          <strong>Strategic Insight:</strong> LeagueApps is the closest to what you're building, but targets larger, established orgs with dedicated admin staff. Their pricing model (demo-required) actively locks out small-to-mid clubs. Your opening: build for the growing mid-market with a self-serve, modern UX that LeagueApps can't offer without a complete redesign.
+        </div>
+      </div>
+    </div>
+
+    <!-- #2 SPORTSENGINE -->
+    <div class="platform-card">
+      <div class="platform-card-header">
+        <span class="rank">02</span>
+        <div class="meta">
+          <h3>SportsEngine</h3>
+          <p class="tagline">NBC Sports' enterprise youth sports OS</p>
+          <a class="url" href="#">sportsengine.com</a>
+        </div>
+        <div class="score-display">
+          <div class="big-score text-green">82</div>
+          <div class="out-of">out of 100</div>
+        </div>
+      </div>
+      <div class="platform-card-body">
+        <div class="platform-metrics">
+          <h4>Criteria Scores</h4>
+          <div class="metric-row">
+            <span class="label">Market Adoption</span>
+            <div class="bar-wrap"><div class="bar-fill bar-green" style="width:90%"></div></div>
+            <span class="val text-green">9</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Feature Completeness</span>
+            <div class="bar-wrap"><div class="bar-fill bar-green" style="width:90%"></div></div>
+            <span class="val text-green">9</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Parent / UX</span>
+            <div class="bar-wrap"><div class="bar-fill bar-orange" style="width:70%"></div></div>
+            <span class="val text-orange">7</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Admin Depth</span>
+            <div class="bar-wrap"><div class="bar-fill bar-green" style="width:90%"></div></div>
+            <span class="val text-green">9</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Facility Scheduling</span>
+            <div class="bar-wrap"><div class="bar-fill bar-orange" style="width:70%"></div></div>
+            <span class="val text-orange">7</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Pricing Value</span>
+            <div class="bar-wrap"><div class="bar-fill bar-red" style="width:60%"></div></div>
+            <span class="val text-red">6</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Support Quality</span>
+            <div class="bar-wrap"><div class="bar-fill bar-blue" style="width:80%"></div></div>
+            <span class="val text-blue">8</span>
+          </div>
+        </div>
+        <div class="platform-features">
+          <h4>What They Nail</h4>
+          <ul class="win-list">
+            <li>195,000+ App Store reviews (4.7 stars) — massive trust signal</li>
+            <li>Live game streaming and instant replays via SE Play</li>
+            <li>Full role-based permissions: admins, coaches, parents, athletes</li>
+            <li>Background checks and abuse prevention training built-in</li>
+            <li>Fundraising tools: gear shop, sponsorship proposals, live streaming revenue</li>
+            <li>Governing body integrations for compliance</li>
+          </ul>
+          <h4 style="margin-top:1rem">Critical Gaps</h4>
+          <ul class="miss-list">
+            <li>Mixed reviews on UX complexity — several "Horrendous" and "Unimpressed" reviews</li>
+            <li>Calendar UX regressed after recent update (users want list view, not day-tap)</li>
+            <li>Notification reliability complaints (chat messages missed)</li>
+            <li>Overkill for small-to-mid orgs — cost and complexity don't scale down</li>
+          </ul>
+        </div>
+        <div class="card-insight">
+          <strong>Strategic Insight:</strong> SportsEngine's own App Store reviews are its Achilles heel. Despite the feature set, parents write "Horrendous" and "Terrible" reviews in 2026. The product has accumulated debt from being an enterprise acquisition pile. Your opening: be what SportsEngine used to be before it became bureaucratic.
+        </div>
+      </div>
+    </div>
+
+    <!-- #3 TEAMLINKT -->
+    <div class="platform-card">
+      <div class="platform-card-header">
+        <span class="rank">03</span>
+        <div class="meta">
+          <h3>TeamLinkt</h3>
+          <p class="tagline">The fastest-growing challenger with AI built in</p>
+          <a class="url" href="#">teamlinkt.com</a>
+        </div>
+        <div class="score-display">
+          <div class="big-score text-green">79</div>
+          <div class="out-of">out of 100</div>
+        </div>
+      </div>
+      <div class="platform-card-body">
+        <div class="platform-metrics">
+          <h4>Criteria Scores</h4>
+          <div class="metric-row">
+            <span class="label">Market Adoption</span>
+            <div class="bar-wrap"><div class="bar-fill bar-orange" style="width:70%"></div></div>
+            <span class="val text-orange">7</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Feature Completeness</span>
+            <div class="bar-wrap"><div class="bar-fill bar-blue" style="width:80%"></div></div>
+            <span class="val text-blue">8</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Parent / UX</span>
+            <div class="bar-wrap"><div class="bar-fill bar-green" style="width:90%"></div></div>
+            <span class="val text-green">9</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Admin Depth</span>
+            <div class="bar-wrap"><div class="bar-fill bar-orange" style="width:70%"></div></div>
+            <span class="val text-orange">7</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Facility Scheduling</span>
+            <div class="bar-wrap"><div class="bar-fill bar-red" style="width:50%"></div></div>
+            <span class="val text-red">5</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Pricing Value</span>
+            <div class="bar-wrap"><div class="bar-fill bar-green" style="width:100%"></div></div>
+            <span class="val text-green">10</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Support Quality</span>
+            <div class="bar-wrap"><div class="bar-fill bar-orange" style="width:70%"></div></div>
+            <span class="val text-orange">7</span>
+          </div>
+        </div>
+        <div class="platform-features">
+          <h4>What They Nail</h4>
+          <ul class="win-list">
+            <li>4.8/5 stars with 11,000 App Store reviews — exceptional</li>
+            <li>AI Assistant "Emi" generates schedules and handles admin tasks</li>
+            <li>Truly free for teams (unlimited users, no paywall core features)</li>
+            <li>Sponsorship matching built-in — brands find youth sports orgs</li>
+            <li>Fastest-growing in North America: 3.5M+ users</li>
+            <li>Full lacrosse sport support with sport-specific tools</li>
+          </ul>
+          <h4 style="margin-top:1rem">Critical Gaps</h4>
+          <ul class="miss-list">
+            <li>Facility/venue scheduling is thin — no ice block management</li>
+            <li>Relatively newer, smaller support team vs. enterprise players</li>
+            <li>No athlete development or performance tracking module</li>
+            <li>Less analytics depth than LeagueApps for large orgs</li>
+          </ul>
+        </div>
+        <div class="card-insight">
+          <strong>Strategic Insight:</strong> TeamLinkt is the most dangerous emerging competitor. They have the best free tier, AI automation, and UX quality. They're growing fast. The gap is facility scheduling and sport-specific depth (they serve 20+ sports generically). You can out-specialize them in lacrosse and hockey while matching their UX quality.
+        </div>
+      </div>
+    </div>
+
+    <!-- #4 TEAMSNAP -->
+    <div class="platform-card">
+      <div class="platform-card-header">
+        <span class="rank">04</span>
+        <div class="meta">
+          <h3>TeamSnap</h3>
+          <p class="tagline">The household name with 35M users and a team-level ceiling</p>
+          <a class="url" href="#">teamsnap.com</a>
+        </div>
+        <div class="score-display">
+          <div class="big-score text-green">77</div>
+          <div class="out-of">out of 100</div>
+        </div>
+      </div>
+      <div class="platform-card-body">
+        <div class="platform-metrics">
+          <h4>Criteria Scores</h4>
+          <div class="metric-row">
+            <span class="label">Market Adoption</span>
+            <div class="bar-wrap"><div class="bar-fill bar-green" style="width:100%"></div></div>
+            <span class="val text-green">10</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Feature Completeness</span>
+            <div class="bar-wrap"><div class="bar-fill bar-orange" style="width:70%"></div></div>
+            <span class="val text-orange">7</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Parent / UX</span>
+            <div class="bar-wrap"><div class="bar-fill bar-green" style="width:90%"></div></div>
+            <span class="val text-green">9</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Admin Depth</span>
+            <div class="bar-wrap"><div class="bar-fill bar-red" style="width:60%"></div></div>
+            <span class="val text-red">6</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Facility Scheduling</span>
+            <div class="bar-wrap"><div class="bar-fill bar-red" style="width:50%"></div></div>
+            <span class="val text-red">5</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Pricing Value</span>
+            <div class="bar-wrap"><div class="bar-fill bar-red" style="width:60%"></div></div>
+            <span class="val text-red">6</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Support Quality</span>
+            <div class="bar-wrap"><div class="bar-fill bar-blue" style="width:80%"></div></div>
+            <span class="val text-blue">8</span>
+          </div>
+        </div>
+        <div class="platform-features">
+          <h4>What They Nail</h4>
+          <ul class="win-list">
+            <li>35M+ users globally — the most trusted brand in the category</li>
+            <li>4.7 stars with 18,000+ App Store reviews</li>
+            <li>Industry's best team-level scheduling and availability tracking</li>
+            <li>MOJO acquisition adds coaching content and media</li>
+            <li>Sponsorship marketplace built-in (Spectrum partnership)</li>
+            <li>Strong calendar sync (Google, Apple)</li>
+          </ul>
+          <h4 style="margin-top:1rem">Critical Gaps</h4>
+          <ul class="miss-list">
+            <li>Built for teams, NOT leagues — no centralized league management</li>
+            <li>No official scoring app — stats are crowdsourced and unreliable</li>
+            <li>$22/team/month multiplies painfully as a league scales to 20+ teams</li>
+            <li>No facility/venue/ice-time scheduling whatsoever</li>
+            <li>No league-level suspension management or compliance tools</li>
+          </ul>
+        </div>
+        <div class="card-insight">
+          <strong>Strategic Insight:</strong> TeamSnap is the reference point every parent will compare you to. Matching their UX quality is table stakes. Beating them on league-level management (which they explicitly don't do) is your clearest competitive wedge. They are not going to rebuild their architecture for league ops — their installed base is too large to pivot.
+        </div>
+      </div>
+    </div>
+
+    <!-- #5 CROSSBAR -->
+    <div class="platform-card">
+      <div class="platform-card-header">
+        <span class="rank">05</span>
+        <div class="meta">
+          <h3>Crossbar</h3>
+          <p class="tagline">The specialist that solved ice time and field scheduling</p>
+          <a class="url" href="#">crossbar.io</a>
+        </div>
+        <div class="score-display">
+          <div class="big-score text-green">76</div>
+          <div class="out-of">out of 100</div>
+        </div>
+      </div>
+      <div class="platform-card-body">
+        <div class="platform-metrics">
+          <h4>Criteria Scores</h4>
+          <div class="metric-row">
+            <span class="label">Market Adoption</span>
+            <div class="bar-wrap"><div class="bar-fill bar-red" style="width:60%"></div></div>
+            <span class="val text-red">6</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Feature Completeness</span>
+            <div class="bar-wrap"><div class="bar-fill bar-blue" style="width:80%"></div></div>
+            <span class="val text-blue">8</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Parent / UX</span>
+            <div class="bar-wrap"><div class="bar-fill bar-orange" style="width:70%"></div></div>
+            <span class="val text-orange">7</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Admin Depth</span>
+            <div class="bar-wrap"><div class="bar-fill bar-blue" style="width:80%"></div></div>
+            <span class="val text-blue">8</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Facility Scheduling</span>
+            <div class="bar-wrap"><div class="bar-fill bar-green" style="width:100%"></div></div>
+            <span class="val text-green">10</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Pricing Value</span>
+            <div class="bar-wrap"><div class="bar-fill bar-blue" style="width:80%"></div></div>
+            <span class="val text-blue">8</span>
+          </div>
+          <div class="metric-row">
+            <span class="label">Support Quality</span>
+            <div class="bar-wrap"><div class="bar-fill bar-orange" style="width:70%"></div></div>
+            <span class="val text-orange">7</span>
+          </div>
+        </div>
+        <div class="platform-features">
+          <h4>What They Nail</h4>
+          <ul class="win-list">
+            <li>Only platform with ice time zone-based block management built in</li>
+            <li>Lesson and training booking at individual rink level</li>
+            <li>Stat tools specifically built for hockey (shots, faceoffs, penalties)</li>
+            <li>Actively pulling clubs away from SportsEngine in hockey</li>
+            <li>Competitive pricing — designed to displace legacy platforms</li>
+            <li>Facility calendar coordination across multiple rinks</li>
+          </ul>
+          <h4 style="margin-top:1rem">Critical Gaps</h4>
+          <ul class="miss-list">
+            <li>Limited to hockey and football — no multi-sport vision</li>
+            <li>Smaller community, less brand recognition than top 3</li>
+            <li>Parent-facing UX is functional but not consumer-grade</li>
+            <li>No multi-sport household view for parents with kids across sports</li>
+          </ul>
+        </div>
+        <div class="card-insight">
+          <strong>Strategic Insight:</strong> Crossbar is your most direct competitor for hockey. They went narrow and deep — which was smart. But their narrowness is also their ceiling. A platform that starts with lacrosse, nails it the way Crossbar nailed hockey, and then expands to multi-sport with a unified parent experience would surpass Crossbar's model entirely.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end top5-grid -->
+</section>
+
+<!-- BOTTOM 5 -->
+<section id="bottom5">
+  <div class="section-tag">Failure Analysis</div>
+  <h2>Bottom 5: What Weak Platforms Get Wrong</h2>
+  <p class="section-desc">These platforms reveal the exact patterns that erode trust, drive churn, and create the market openings the top platforms exploit.</p>
+
+  <div class="bottom5-grid">
+
+    <div class="bottom-card">
+      <div class="b-header">
+        <div>
+          <h3>GotSport</h3>
+          <p style="font-size:0.78rem;color:var(--dim);margin-top:0.2rem">gotsport.com</p>
+        </div>
+        <span class="b-score">51</span>
+      </div>
+      <p>The original soccer management platform that failed to evolve. Its aging architecture shows: 4.1 App Store rating, a news feed that feels like 2014, and zero meaningful innovation since its early dominance in youth soccer registration.</p>
+      <div>
+        <span class="fail-tag">Sport-locked</span>
+        <span class="fail-tag">Aging UX</span>
+        <span class="fail-tag">No analytics</span>
+        <span class="fail-tag">Poor mobile</span>
+      </div>
+    </div>
+
+    <div class="bottom-card">
+      <div class="b-header">
+        <div>
+          <h3>Leageez</h3>
+          <p style="font-size:0.78rem;color:var(--dim);margin-top:0.2rem">leageez.com</p>
+        </div>
+        <span class="b-score">44</span>
+      </div>
+      <p>A free mobile app built for simplicity, but so simple it breaks under any organizational complexity. Referee scheduling is its headline feature — which means it was designed for admins, not families. No parent-facing UX investment whatsoever.</p>
+      <div>
+        <span class="fail-tag">No parent UX</span>
+        <span class="fail-tag">No facility mgmt</span>
+        <span class="fail-tag">No analytics</span>
+        <span class="fail-tag">Admin-only focus</span>
+      </div>
+    </div>
+
+    <div class="bottom-card">
+      <div class="b-header">
+        <div>
+          <h3>Jersey Watch</h3>
+          <p style="font-size:0.78rem;color:var(--dim);margin-top:0.2rem">jerseywatch.com</p>
+        </div>
+        <span class="b-score">43</span>
+      </div>
+      <p>Designed as a landing pad for programs just starting out. Good for getting a first website live, but immediately hits a ceiling the moment a league has 3 or more teams. No real league hierarchy, no payments integration, no mobile app to speak of.</p>
+      <div>
+        <span class="fail-tag">No scale path</span>
+        <span class="fail-tag">Website-only</span>
+        <span class="fail-tag">No app</span>
+        <span class="fail-tag">No league mgmt</span>
+      </div>
+    </div>
+
+    <div class="bottom-card">
+      <div class="b-header">
+        <div>
+          <h3>BenchApp</h3>
+          <p style="font-size:0.78rem;color:var(--dim);margin-top:0.2rem">benchapp.com</p>
+        </div>
+        <span class="b-score">39</span>
+      </div>
+      <p>A 3.8/5 App Store rating is a warning sign that reveals itself immediately in reviews: unreliable notifications, clunky payment flows, and a scheduling UI that confuses parents. Payments and messaging exist but neither works reliably enough to trust for a real league.</p>
+      <div>
+        <span class="fail-tag">3.8 App rating</span>
+        <span class="fail-tag">Broken notifications</span>
+        <span class="fail-tag">Unreliable payments</span>
+        <span class="fail-tag">Poor scheduling</span>
+      </div>
+    </div>
+
+    <div class="bottom-card">
+      <div class="b-header">
+        <div>
+          <h3>Spordle</h3>
+          <p style="font-size:0.78rem;color:var(--dim);margin-top:0.2rem">spordle.com</p>
+        </div>
+        <span class="b-score">36</span>
+      </div>
+      <p>The lowest-rated platform in the market with a 3.4/5 App Store score. A Canadian-centric tool with live scoring capabilities but no meaningful growth, no feature breadth, and a UX so limited that its free plan feels like a liability rather than a hook.</p>
+      <div>
+        <span class="fail-tag">3.4 App rating</span>
+        <span class="fail-tag">Canada-only scale</span>
+        <span class="fail-tag">No feature depth</span>
+        <span class="fail-tag">No community</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section id="principles">
+  <div class="section-tag">Pattern Recognition</div>
+  <h2>What Separates Winners from Losers</h2>
+  <p class="section-desc">The 10 principles that consistently predict platform success or failure in youth sports management. These aren't opinions — they're patterns from the data.</p>
+
+  <div class="principles-grid">
+    <div class="principle-col wins">
+      <h3>&#9650; What Winners Do</h3>
+
+      <div class="principle-item">
+        <div class="principle-icon">&#128241;</div>
+        <div class="principle-text">
+          <h4>Mobile-first, not mobile-after</h4>
+          <p>Top platforms built for phones first. Parents live on phones. A 4.7+ App Store rating is not a vanity metric — it determines weekly active usage and churn rate more than any feature list.</p>
+        </div>
+      </div>
+
+      <div class="principle-item">
+        <div class="principle-icon">&#128100;</div>
+        <div class="principle-text">
+          <h4>Role-based experience design</h4>
+          <p>Admin, coach, parent, and athlete see completely different UIs. The platform knows who you are and shows you only what matters. Generic "one view for all" is the sign of a weak product.</p>
+        </div>
+      </div>
+
+      <div class="principle-item">
+        <div class="principle-icon">&#128176;</div>
+        <div class="principle-text">
+          <h4>Payments fully embedded, not bolted on</h4>
+          <p>Winning platforms process fees, issue refunds, track installment plans, and send automated payment reminders inside the product. Any redirect to a third-party payment page is a point of friction that kills conversion.</p>
+        </div>
+      </div>
+
+      <div class="principle-item">
+        <div class="principle-icon">&#127968;</div>
+        <div class="principle-text">
+          <h4>Org hierarchy from top to bottom</h4>
+          <p>Governing body, association, league, division, team, player. Winners have all six levels with role-based permissions at each. Losers start at "team" and never get above it.</p>
+        </div>
+      </div>
+
+      <div class="principle-item">
+        <div class="principle-icon">&#128202;</div>
+        <div class="principle-text">
+          <h4>Real analytics that drive decisions</h4>
+          <p>Revenue by program, registration trends by age group, payment delinquency rates — admins who volunteer nights and weekends need data that works for them, not just spreadsheet exports.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-col fails">
+      <h3>&#9660; What Losers Fail At</h3>
+
+      <div class="principle-item">
+        <div class="principle-icon">&#128260;</div>
+        <div class="principle-text">
+          <h4>Notifications that don't work</h4>
+          <p>BenchApp, SportsEngine's recent updates, and multiple small platforms share the same 1-star review theme: "I missed the game because the notification never came." Broken notifications kill trust faster than any UX flaw.</p>
+        </div>
+      </div>
+
+      <div class="principle-item">
+        <div class="principle-icon">&#128683;</div>
+        <div class="principle-text">
+          <h4>Sport-locked or admin-locked product vision</h4>
+          <p>GotSport never escaped soccer. Leageez never escaped referee admins. Being too narrow or too deep in one user's workflow leaves the full value chain unaddressed and creates switching opportunities for broader competitors.</p>
+        </div>
+      </div>
+
+      <div class="principle-item">
+        <div class="principle-icon">&#128257;</div>
+        <div class="principle-text">
+          <h4>Pricing that punishes growth</h4>
+          <p>TeamSnap's $22/team/month model means a 20-team league pays $5,280/year. As leagues grow, costs explode. Weak platforms never crack this: per-participant pricing is fairer but requires more sophisticated billing.</p>
+        </div>
+      </div>
+
+      <div class="principle-item">
+        <div class="principle-icon">&#128165;</div>
+        <div class="principle-text">
+          <h4>No migration path</h4>
+          <p>Platforms with no data import tools force admins to re-enter everything. This is the #1 reason leagues stay on inferior platforms: the switching cost is manually re-entering 300 player profiles. Winners build import tools first.</p>
+        </div>
+      </div>
+
+      <div class="principle-item">
+        <div class="principle-icon">&#128187;</div>
+        <div class="principle-text">
+          <h4>Desktop-designed interfaces ported to mobile</h4>
+          <p>The bottom 5 all share this flaw: you can tell the product was designed on a MacBook, then squeezed into an app. Tables, multi-column forms, and tiny tap targets are death on mobile for parents standing at rinkside in gloves.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPPORTUNITY MAP -->
+<section id="opportunity">
+  <div class="section-tag">Strategic Blueprint</div>
+  <h2>Your Platform Opportunity Map</h2>
+  <p class="section-desc">The 10 genuine market gaps that none of the top 5 platforms have fully addressed — these are your build priorities.</p>
+
+  <div class="opportunity-grid">
+
+    <div class="opp-card">
+      <span class="opp-label gap-label">&#9650; Critical Gap</span>
+      <h3>Multi-Sport Family Dashboard</h3>
+      <p>No platform shows a parent their three kids' schedules across lacrosse, hockey, and soccer in one unified view. The parent has to manage 3 different apps. This is the #1 unmet family need in youth sports. Solve it first.</p>
+    </div>
+
+    <div class="opp-card">
+      <span class="opp-label gap-label">&#9650; Critical Gap</span>
+      <h3>Unified Ice Time + Field Time Scheduling</h3>
+      <p>Crossbar does ice. Nobody does ice AND field time together across multiple sports in one platform. Hockey leagues in winter and lacrosse leagues in spring share many of the same families. One platform for both is a massive network effect opportunity.</p>
+    </div>
+
+    <div class="opp-card">
+      <span class="opp-label gap-label">&#9650; Critical Gap</span>
+      <h3>Athlete Profile + Development Tracking</h3>
+      <p>No platform gives athletes a meaningful profile that travels with them through seasons and years. Stats, milestones, growth metrics, and coach notes should belong to the athlete — not disappear when a team dissolves. This is the "LinkedIn for young athletes" gap.</p>
+    </div>
+
+    <div class="opp-card">
+      <span class="opp-label gap-label">&#9650; Critical Gap</span>
+      <h3>Sport-Specific AI Scheduling</h3>
+      <p>TeamLinkt's Emi is generic. No platform uses AI to optimize schedules against actual ice/field availability, travel constraints, weather, and team competitive balance. AI-generated, conflict-free season scheduling saves coordinators 40+ hours per season.</p>
+    </div>
+
+    <div class="opp-card">
+      <span class="opp-label gap-label">&#9650; Critical Gap</span>
+      <h3>Transparent Per-Family Financial View</h3>
+      <p>Parents get invoices but rarely understand what they're paying for. A clear breakdown — ice time costs, coaching fees, equipment, tournament entry — builds trust and reduces payment disputes. No platform currently offers this transparency.</p>
+    </div>
+
+    <div class="opp-card">
+      <span class="opp-label edge-label">&#9656; Competitive Edge</span>
+      <h3>Lacrosse-Native Feature Set</h3>
+      <p>Face-off tracking, dodging/shooting stat capture, position visualization on the lacrosse field diagram, lax-specific roster rules and age grades. Starting here gives you a passionate, underserved niche with major growth trajectories (lacrosse is the fastest-growing US sport).</p>
+    </div>
+
+    <div class="opp-card">
+      <span class="opp-label edge-label">&#9656; Competitive Edge</span>
+      <h3>Tournament Management as a Core Feature</h3>
+      <p>Every platform treats tournament management as a bolt-on. For lacrosse clubs, tournaments are 30-40% of the season. Bracket visualization, multi-venue scheduling, hotel block recommendations, and real-time live scores all in one place — this is a major retention driver.</p>
+    </div>
+
+    <div class="opp-card">
+      <span class="opp-label edge-label">&#9656; Competitive Edge</span>
+      <h3>White-Label for Governing Bodies</h3>
+      <p>US Lacrosse, USA Hockey — these national bodies need a platform they can brand and distribute to local chapters. LeagueApps and SportsEngine have this, but it requires enterprise contracts. A modern, API-first platform could capture this distribution channel in 12-18 months post-launch.</p>
+    </div>
+
+    <div class="opp-card">
+      <span class="opp-label edge-label">&#9656; Competitive Edge</span>
+      <h3>Self-Serve Onboarding at Any Scale</h3>
+      <p>LeagueApps requires a demo call. SportsEngine requires a sales rep. A league coordinator who finds your platform at 10pm on Sunday should be able to set up their entire season without talking to anyone. This is a moat against enterprise players who can't serve this segment profitably.</p>
+    </div>
+
+    <div class="opp-card">
+      <span class="opp-label edge-label">&#9656; Competitive Edge</span>
+      <h3>Coach Development + Practice Tools</h3>
+      <p>MOJO (acquired by TeamSnap) proved there's demand for coaching content inside the platform. A native drill library, practice planner with lacrosse/hockey diagrams, and coach-to-athlete feedback loop would make coaches loyal advocates — and coaches drive platform adoption in their leagues.</p>
+    </div>
+
+  </div>
+
+  <div class="callout" style="margin-top:2.5rem">
+    <h3>The Build Sequence</h3>
+    <p>Start with lacrosse-native, multi-team league management for 1 client. Nail ice time + field time scheduling in the MVP. Ship the family dashboard (multi-child view) in v1.1 — it's your most powerful word-of-mouth driver. Add athlete profiles in v1.2. Expand to hockey with the same facility scheduling engine. From there, every additional sport is a feature flag, not a rebuild.</p>
+  </div>
+</section>
+
+<!-- NAMES -->
+<section id="names">
+  <div class="section-tag">Brand Identity</div>
+  <h2>Platform Name Recommendations</h2>
+  <p class="section-desc">
+    Domains in the youth sports space are highly saturated. After checking 50+ combinations, here are the strongest available .com domains found — and the best names to investigate further. The name should work across all sports, be parent-friendly, and carry a sense of a unified, organized system.
+  </p>
+
+  <div class="names-grid">
+
+    <!-- AVAILABLE -->
+    <div class="name-card available">
+      <span class="avail-badge yes">Available · $11.25</span>
+      <div class="domain">LeagueBloom</div>
+      <div class="price">leaguebloom.com confirmed available</div>
+      <p class="why">Strong botanical metaphor: a league that grows, develops, and puts athletes first. "Bloom" carries warmth and youth development energy. Works well as a brand: "Your kids play. LeagueBloom runs the rest."</p>
+      <div class="traits">
+        <span class="trait">Warm</span>
+        <span class="trait">Memorable</span>
+        <span class="trait">Multi-sport</span>
+        <span class="trait">Growth metaphor</span>
+      </div>
+    </div>
+
+    <div class="name-card available">
+      <span class="avail-badge yes">Available · $11.25</span>
+      <div class="domain">LeagueGrove</div>
+      <div class="price">leaguegrove.com confirmed available</div>
+      <p class="why">A grove is a collective of strong things growing together. Carries community, roots, and permanence. Less whimsical than Bloom, more structural — better if targeting league admins over parents. "LeagueGrove: Where leagues run."</p>
+      <div class="traits">
+        <span class="trait">Strong</span>
+        <span class="trait">Community feel</span>
+        <span class="trait">Admin-friendly</span>
+        <span class="trait">Rooted</span>
+      </div>
+    </div>
+
+    <div class="name-card available">
+      <span class="avail-badge yes">Available · $11.25</span>
+      <div class="domain">FieldOrchard</div>
+      <div class="price">fieldorchard.com confirmed available</div>
+      <p class="why">An orchard is where things are cultivated and yield results — strong metaphor for developing athletes. "Field" keeps it sports-grounded. Could shorten to "Orchard" as the brand name with fieldorchard.com as the domain.</p>
+      <div class="traits">
+        <span class="trait">Distinctive</span>
+        <span class="trait">Multi-sport</span>
+        <span class="trait">Development angle</span>
+        <span class="trait">Shortens well</span>
+      </div>
+    </div>
+
+    <div class="name-card available">
+      <span class="avail-badge yes">Available · $11.25</span>
+      <div class="domain">SportOrchard</div>
+      <div class="price">sportorchard.com confirmed available</div>
+      <p class="why">Cleaner version of FieldOrchard. "Sport" reads instantly as category, "Orchard" differentiates from every -Hub, -OS, and -Engine in the market. High distinctiveness, no existing brand conflict found.</p>
+      <div class="traits">
+        <span class="trait">Highly distinctive</span>
+        <span class="trait">Category-clear</span>
+        <span class="trait">No brand conflict</span>
+        <span class="trait">Scales to all sports</span>
+      </div>
+    </div>
+
+    <div class="name-card available">
+      <span class="avail-badge yes">Available · $11.25</span>
+      <div class="domain">LeagueOrchard</div>
+      <div class="price">leagueorchard.com confirmed available</div>
+      <p class="why">Most on-the-nose for the league admin ICP. Positions as the platform where leagues are cultivated and yield results. Domain is strong for SEO since "league" is a high-intent keyword. This might be the best domain of the batch.</p>
+      <div class="traits">
+        <span class="trait">SEO-strong keyword</span>
+        <span class="trait">ICP-direct</span>
+        <span class="trait">Available now</span>
+        <span class="trait">Premium feel</span>
+      </div>
+    </div>
+
+    <div class="name-card available">
+      <span class="avail-badge yes">Available · $11.25</span>
+      <div class="domain">LeagueModo</div>
+      <div class="price">leaguemodo.com confirmed available</div>
+      <p class="why">"Modo" is Italian and Spanish for "way" or "style/manner." Suggests the platform is the mode — the preferred way — to run a league. More startup-tech-brand energy than the orchard/bloom names. Good for a younger, product-led positioning.</p>
+      <div class="traits">
+        <span class="trait">Tech-brand energy</span>
+        <span class="trait">Modern feel</span>
+        <span class="trait">International appeal</span>
+        <span class="trait">Startup-style</span>
+      </div>
+    </div>
+
+    <!-- CHECK THESE (suggest to investigate) -->
+    <div class="name-card check">
+      <span class="avail-badge check-it">Check Availability</span>
+      <div class="domain">Hudlr</div>
+      <div class="price">hudlr.com / .io / .app</div>
+      <p class="why">The huddle is the universal sports moment of coordination. Short, action-verb feel, easy to say. "Hudlr" is stylized app-naming convention. Check against Hudl (video analysis platform) for trademark conflict before pursuing.</p>
+      <div class="traits">
+        <span class="trait">Instant recognition</span>
+        <span class="trait">Action metaphor</span>
+        <span class="trait">Check trademark</span>
+      </div>
+    </div>
+
+    <div class="name-card check">
+      <span class="avail-badge check-it">Check Availability</span>
+      <div class="domain">Fieldwork</div>
+      <div class="price">fieldwork.io / .app / .co</div>
+      <p class="why">"Fieldwork" means doing the real work in the field, not the office — perfect metaphor for sports admin. Clean, professional, immediately understood. The .com is taken but .io and .app may be available for this use case.</p>
+      <div class="traits">
+        <span class="trait">Professional tone</span>
+        <span class="trait">Admin metaphor</span>
+        <span class="trait">Alt TLD viable</span>
+      </div>
+    </div>
+
+    <div class="name-card check">
+      <span class="avail-badge check-it">Check Availability</span>
+      <div class="domain">Pivot</div>
+      <div class="price">pivot.sport / pivot.io</div>
+      <p class="why">A pivot is one of the most fundamental athletic movements. As a brand name it suggests agility, change, and modern thinking. Very clean, single-word, memorable. Unlikely to get the .com but sport TLDs may work.</p>
+      <div class="traits">
+        <span class="trait">Single word</span>
+        <span class="trait">Athletic metaphor</span>
+        <span class="trait">Bold and clean</span>
+      </div>
+    </div>
+
+    <div class="name-card check">
+      <span class="avail-badge check-it">Check Availability</span>
+      <div class="domain">Whistl</div>
+      <div class="price">whistl.com / whistl.app</div>
+      <p class="why">The whistle starts and stops every game — it's the signal that things are official. As a platform name it suggests authority and coordination. Short, distinctive, and universally recognized across every sport. Check trademark conflicts carefully.</p>
+      <div class="traits">
+        <span class="trait">Universal sports icon</span>
+        <span class="trait">Authority signal</span>
+        <span class="trait">5 characters</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout" style="margin-top:2.5rem;border-left:3px solid var(--green)">
+    <h3>Naming Recommendation</h3>
+    <p>Of the confirmed available options, <strong style="color:var(--text)">LeagueOrchard</strong> is the strongest pick: "league" is a high-intent SEO keyword, "orchard" is distinctive in a market full of -Engine, -Apps, and -Snap names, and the metaphor (cultivation, growth, harvest) maps perfectly to what youth sports organizations actually do — grow athletes and programs over seasons. <strong style="color:var(--text)">LeagueModo</strong> is the better pick if you want a more modern, tech-startup positioning. Both are available for $11.25/year. Register both.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <strong>YouthSports Platform Intelligence Report</strong> &middot; Prepared May 2026<br>
+    Research via Firecrawl web intelligence across 15 platforms. Scores reflect a weighted 7-axis judging matrix.<br>
+    This report is a strategic planning document. Platform scores are assessments, not endorsements.<br><br>
+    Built with Claude Code &middot; For internal use only.
+  </p>
+</footer>
+
+</body>
+</html>

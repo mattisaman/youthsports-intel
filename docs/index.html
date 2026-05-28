@@ -642,6 +642,125 @@
       color: var(--muted);
     }
 
+    /* ─── FEES ─── */
+    .fees-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .fees-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      min-width: 700px;
+    }
+    .fees-table th {
+      background: var(--bg3);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .fees-table td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .fees-table td:first-child { font-weight: 600; color: var(--text); }
+    .fees-table tr:last-child td { border-bottom: none; }
+    .fees-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .fees-table .benchmark-row td {
+      background: rgba(0,232,122,0.04);
+      border-top: 1px solid rgba(0,232,122,0.15);
+    }
+    .fee-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.18rem 0.55rem;
+      border-radius: 5px;
+      white-space: nowrap;
+    }
+    .badge-red    { background: rgba(239,68,68,0.12);  color: var(--red); }
+    .badge-orange { background: rgba(249,115,22,0.12); color: var(--orange); }
+    .badge-yellow { background: rgba(234,179,8,0.12);  color: var(--yellow); }
+    .badge-green  { background: rgba(0,232,122,0.12);  color: var(--green); }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .calc-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+    .calc-card.best-value {
+      border-color: rgba(0,232,122,0.3);
+      background: rgba(0,232,122,0.04);
+    }
+    .calc-card .c-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.55rem;
+    }
+    .calc-card .c-amount {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.25rem;
+      line-height: 1;
+    }
+    .calc-card .c-breakdown {
+      font-size: 0.77rem;
+      color: var(--dim);
+      line-height: 1.5;
+    }
+
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .diff-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      border-top: 3px solid var(--green);
+    }
+    .diff-card .diff-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      margin-bottom: 0.5rem;
+    }
+    .diff-card h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .diff-card p {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
     /* ─── FOOTER ─── */
     footer {
       border-top: 1px solid var(--border);
@@ -717,6 +836,7 @@
     <li><a href="#principles">Principles</a></li>
     <li><a href="#opportunity">Opportunity</a></li>
     <li><a href="#names">Names</a></li>
+    <li><a href="#fees">Fees</a></li>
   </ul>
 </nav>
 
@@ -1813,6 +1933,192 @@
   <div class="callout" style="margin-top:2.5rem;border-left:3px solid var(--green)">
     <h3>Naming Recommendation</h3>
     <p>Of the confirmed available options, <strong style="color:var(--text)">LeagueOrchard</strong> is the strongest pick: "league" is a high-intent SEO keyword, "orchard" is distinctive in a market full of -Engine, -Apps, and -Snap names, and the metaphor (cultivation, growth, harvest) maps perfectly to what youth sports organizations actually do — grow athletes and programs over seasons. <strong style="color:var(--text)">LeagueModo</strong> is the better pick if you want a more modern, tech-startup positioning. Both are available for $11.25/year. Register both.</p>
+  </div>
+</section>
+
+<!-- FEES -->
+<section id="fees">
+  <div class="section-header">
+    <div class="section-tag">Payment Fees Deep Dive</div>
+    <h2 class="section-title">Where Every Platform Hits <span class="text-green">Your Wallet</span></h2>
+    <p class="section-sub">Fees are the silent killer of trust. Most platforms hide their rates behind demos or pass costs to parents by default without disclosure. Here's the unfiltered breakdown — and where a new platform wins.</p>
+  </div>
+
+  <!-- ── Fee Comparison Table ── -->
+  <div class="fees-table-wrap">
+    <table class="fees-table">
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Processing Rate</th>
+          <th>Per-Transaction Fee</th>
+          <th>Platform Subscription</th>
+          <th>Transparency</th>
+          <th>Who Pays by Default</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SportsEngine</td>
+          <td>3.25%</td>
+          <td>$2.00 per installment</td>
+          <td>Custom (demo required)</td>
+          <td><span class="fee-badge badge-orange">Partial</span></td>
+          <td>Passable to registrant</td>
+        </tr>
+        <tr>
+          <td>TeamSnap (Teams)</td>
+          <td>3.25%</td>
+          <td>$1.50 per transaction</td>
+          <td>$120/yr Premium · $150/yr Ultra<br>TeamSnap ONE: custom</td>
+          <td><span class="fee-badge badge-yellow">Disclosed</span></td>
+          <td><span style="color:var(--red);font-weight:600">Parent — ON by default.</span> Must be manually disabled.</td>
+        </tr>
+        <tr>
+          <td>TeamLinkt</td>
+          <td>"Industry-low" (undisclosed)</td>
+          <td>Not publicly disclosed</td>
+          <td>Free core · $425/yr Revenue Bundle</td>
+          <td><span class="fee-badge badge-red">Opaque</span></td>
+          <td>Configurable by admin</td>
+        </tr>
+        <tr>
+          <td>LeagueApps</td>
+          <td>"Small %" — demo required<br><span style="color:var(--green);font-size:0.78rem">Some orgs under 2% (cost-plus via Stripe)</span></td>
+          <td>None — percentage model only</td>
+          <td>No subscription · one-time setup fee</td>
+          <td><span class="fee-badge badge-orange">Partial</span></td>
+          <td>Org absorbs · optional $1–$5 pass-through at admin's discretion</td>
+        </tr>
+        <tr>
+          <td>Crossbar</td>
+          <td>Not publicly disclosed</td>
+          <td>Not publicly disclosed</td>
+          <td>Custom (demo required)</td>
+          <td><span class="fee-badge badge-red">Opaque</span></td>
+          <td>Configurable by admin</td>
+        </tr>
+        <tr class="benchmark-row">
+          <td><strong style="color:var(--green)">Stripe (industry baseline)</strong></td>
+          <td><strong style="color:var(--green)">2.9%</strong></td>
+          <td><strong style="color:var(--green)">$0.30 per transaction</strong></td>
+          <td>None</td>
+          <td><span class="fee-badge badge-green">Fully Public</span></td>
+          <td>Merchant decides — no default</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size:0.76rem;color:var(--dim);margin-top:0.75rem;">Sources: SportsEngine help.sportsengine.com (May 2025); TeamSnap helpme.teamsnap.com + checkthat.ai (Apr 2026); LeagueApps leagueapps.com/pricing (2023). TeamLinkt and Crossbar rates require direct contact.</p>
+
+  <!-- ── Calculator: $200 single payment ── -->
+  <div style="margin-top:3rem;">
+    <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.3rem;">What a $200 Registration Actually Costs a Parent</h3>
+    <p style="font-size:0.84rem;color:var(--muted);">Single payment, fee passed to parent. Effective cost above Stripe's baseline shown in red.</p>
+    <div class="calc-grid">
+      <div class="calc-card best-value">
+        <div class="c-label">Stripe Baseline</div>
+        <div class="c-amount text-green">$206.10</div>
+        <div class="c-breakdown">2.9% + $0.30 = $6.10 in fees</div>
+      </div>
+      <div class="calc-card">
+        <div class="c-label">LeagueApps (est. ~2.5%)</div>
+        <div class="c-amount" style="color:var(--blue)">~$205.30</div>
+        <div class="c-breakdown">~$5.30 in fees · varies by org volume</div>
+      </div>
+      <div class="calc-card">
+        <div class="c-label">TeamLinkt</div>
+        <div class="c-amount" style="color:var(--dim)">Unknown</div>
+        <div class="c-breakdown">Rate not publicly disclosed</div>
+      </div>
+      <div class="calc-card">
+        <div class="c-label">TeamSnap</div>
+        <div class="c-amount" style="color:var(--orange)">$208.00</div>
+        <div class="c-breakdown">3.25% + $1.50 = $8.00 · <span style="color:var(--red)">+$1.90 vs Stripe (+31%)</span></div>
+      </div>
+      <div class="calc-card">
+        <div class="c-label">SportsEngine</div>
+        <div class="c-amount" style="color:var(--red)">$208.50</div>
+        <div class="c-breakdown">3.25% + $2.00 = $8.50 · <span style="color:var(--red)">+$2.40 vs Stripe (+39%)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Calculator: $1,500 season (4 installments) ── -->
+  <div style="margin-top:2.5rem;">
+    <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.3rem;">Full Season: $1,500 Paid in 4 Installments</h3>
+    <p style="font-size:0.84rem;color:var(--muted);">Typical travel lacrosse or hockey season. Per-transaction fees compound — 4 payments instead of 1 changes the math significantly.</p>
+    <div class="calc-grid">
+      <div class="calc-card best-value">
+        <div class="c-label">Stripe Baseline</div>
+        <div class="c-amount text-green">$44.70</div>
+        <div class="c-breakdown">2.9% × $1,500 + $0.30 × 4 installments</div>
+      </div>
+      <div class="calc-card">
+        <div class="c-label">LeagueApps (est. ~2.5%)</div>
+        <div class="c-amount" style="color:var(--blue)">~$37.50</div>
+        <div class="c-breakdown">~2.5% × $1,500, no flat per-tx fee</div>
+      </div>
+      <div class="calc-card">
+        <div class="c-label">TeamLinkt</div>
+        <div class="c-amount" style="color:var(--dim)">Unknown</div>
+        <div class="c-breakdown">Rate not publicly disclosed</div>
+      </div>
+      <div class="calc-card">
+        <div class="c-label">TeamSnap</div>
+        <div class="c-amount" style="color:var(--orange)">$54.75</div>
+        <div class="c-breakdown">3.25% × $1,500 + $1.50 × 4 · <span style="color:var(--red)">+$10.05 vs Stripe (+22%)</span></div>
+      </div>
+      <div class="calc-card">
+        <div class="c-label">SportsEngine</div>
+        <div class="c-amount" style="color:var(--red)">$56.75</div>
+        <div class="c-breakdown">3.25% × $1,500 + $2.00 × 4 · <span style="color:var(--red)">+$12.05 vs Stripe (+27%)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Differentiation Opportunities ── -->
+  <div style="margin-top:3.5rem;">
+    <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.3rem;">Six Ways a New Platform Wins on Fees</h3>
+    <p style="font-size:0.84rem;color:var(--muted);margin-bottom:0.25rem;">These aren't features — they're structural positions the incumbents can't easily reverse without angering existing customers.</p>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-num">01 · Transparency</div>
+        <h4>Publish Your Rates. No Demo Required.</h4>
+        <p>Every competitor gates pricing behind a sales call or hides it entirely. A single public pricing page — with exact rates, a fee calculator, and zero asterisks — is a stronger first impression than any feature comparison. Leagues will screenshot it and share it with boards.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-num">02 · Pricing Model</div>
+        <h4>Build on Stripe at Cost. Charge for the Platform.</h4>
+        <p>SportsEngine and TeamSnap both markup Stripe by 12–39% on a $200 transaction. Pass Stripe's rates through at cost and monetize via a fair subscription. Parents pay less per registration; the platform still earns. Both sides win — and the league admin becomes your evangelist.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-num">03 · Installment Fairness</div>
+        <h4>Cap or Eliminate the Per-Payment Fee.</h4>
+        <p>TeamSnap's $1.50 flat fee per transaction charges a 6.3% effective rate on a $50 deposit. Families on installment plans — the ones who most need the flexibility — get hit hardest. A capped or eliminated per-installment fee directly addresses this. No competitor does it.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-num">04 · Default Behavior</div>
+        <h4>Make "Org Absorbs Fees" the Default.</h4>
+        <p>TeamSnap's fee passthrough is ON by default — a dark pattern that surprises parents at checkout and makes the league look greedy, not the platform. Defaulting to org-absorbed (with an explicit, clear opt-out) builds trust. Leagues keep their reputation; parents feel respected.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-num">05 · Parent Experience</div>
+        <h4>Give Parents a Financial Dashboard.</h4>
+        <p>No platform shows parents a clear "what you've paid, what's due, why the fee is $X" view. A per-family financial dashboard with itemized fee detail — season dues, tournament entry, equipment deposits, processing fee — would be a first in market and directly solves the #1 parent complaint.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-num">06 · Sport-Native Billing</div>
+        <h4>Build for Ice + Field Multi-Payment Complexity.</h4>
+        <p>Hockey and lacrosse organizations have billing complexity no generic platform handles well: ice time deposits, equipment rental, multi-team families, tournament entry fees, and booster dues — all hitting at different times. A billing engine designed for this cadence is a structural moat. General platforms will always be adapting; a sport-native platform starts ahead.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:2.5rem;border-left:3px solid var(--green)">
+    <h3>The Fee Opportunity in One Sentence</h3>
+    <p>The incumbents charge 12–39% above Stripe's baseline on every transaction, hide it behind demos and on-by-default dark patterns, and give parents no visibility into why. A new platform that publishes competitive rates upfront and builds an honest parent-facing payment experience wins the first conversation before a single feature is demoed.</p>
   </div>
 </section>
 
